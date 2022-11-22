@@ -1,0 +1,6 @@
+.photo__element {
+    max-width: 282px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    object-fit: cover;
+}

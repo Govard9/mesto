@@ -1,0 +1,8 @@
+.photo__like {
+}
+
+@media screen and (max-width: 320px) {
+  .photo__like {
+    padding-right: 2px;
+  }
+}

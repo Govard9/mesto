@@ -24,3 +24,11 @@
 @import url(../blocks/profile/__profession/profile__profession.css);
 @import url(../blocks/profile/__edit-button/profile__edit-button.css);
 @import url(../blocks/profile/__add-button/profile__add-button.css);
+
+/* Photo */
+@import url(../blocks/photo/photo.css);
+@import url(../blocks/photo/__elements/photo__elements.css);
+@import url(../blocks/photo/__element/photo__element.css);
+@import url(../blocks/photo/__info/photo__info.css);
+@import url(../blocks/photo/__signature/photo__signature.css);
+@import url(../blocks/photo/__like/photo__like.css);
