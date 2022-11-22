@@ -32,3 +32,7 @@
 @import url(../blocks/photo/__info/photo__info.css);
 @import url(../blocks/photo/__signature/photo__signature.css);
 @import url(../blocks/photo/__like/photo__like.css);
+
+/* Footer */
+@import url(../blocks/footer/footer.css);
+@import url(../blocks/footer/__author/footer__author.css);
