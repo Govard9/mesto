@@ -10,6 +10,13 @@
   font-size: 18px;
   line-height: 22px;
   text-align: center;
+  padding: 0;
+}
+
+.poput__item-button:hover {
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 536px) {

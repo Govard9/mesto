@@ -4,6 +4,13 @@
   height: 50px;
   margin-left: auto;
   margin-top: 35px;
+  transition: 0.3s ease;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 710px) {

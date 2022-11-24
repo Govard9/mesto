@@ -32,6 +32,7 @@
 @import url(../blocks/photo/__info/photo__info.css);
 @import url(../blocks/photo/__signature/photo__signature.css);
 @import url(../blocks/photo/__like/photo__like.css);
+@import url(../blocks/photo/__like/_active/photo__like_active.css);
 
 /* Footer */
 @import url(../blocks/footer/footer.css);
@@ -46,3 +47,4 @@
 @import url(../blocks/popup/__item/popup__item.css);
 @import url(../blocks/popup/__item-button/poput__item-button.css);
 @import url(../blocks/popup/__close/popup__close.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
