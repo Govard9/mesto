@@ -1,0 +1,21 @@
+.poput__item-button {
+  width: 358px;
+  height: 50px;
+  background: #000000;
+  border: 0;
+  border-radius: 2px;
+  color: #fff;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+}
+
+@media screen and (max-width: 536px) {
+  .poput__item-button {
+    max-width: 238px;
+    height: 46px;
+    padding: 0;
+  }
+}
