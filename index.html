@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script async src="./pages/index.js"></script>
     <link rel="stylesheet" href="./pages/index.css" type="text/css" />
     <title>Mesto</title>
   </head>
@@ -33,7 +34,9 @@
               class="profile__edit-button"
             />
           </div>
-          <p class="profile__profession">Исследователь океана</p>
+          <p class="profile__profession">
+            Исследователь океана
+          </p>
         </div>
         <div class="profile__add-button"></div>
       </section>
@@ -46,7 +49,7 @@
           />
           <div class="photo__info">
             <figcaption class="photo__signature">Плотина</figcaption>
-            <div class="photo__like photo__like_active"></div>
+            <div class="photo__like"></div>
           </div>
         </figure>
         <figure class="photo__elements">
@@ -119,11 +122,11 @@
           />
           <h2 class="popup__text">Редактировать профиль</h2>
           <fieldset class="popup__form">
-            <input type="text" value="Жак-Ив Кусто" class="popup__item" />
+            <input type="text" value="Жак-Ив Кусто" class="poput__item-author" />
             <input
               type="text"
               value="Исследователь океана"
-              class="popup__item"
+              class="poput__item-profession"
             />
             <input type="submit" value="Сохранить" class="poput__item-button" />
           </fieldset>
