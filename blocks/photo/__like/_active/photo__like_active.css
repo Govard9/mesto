@@ -1,8 +1,8 @@
 .photo__like_active {
-    background: url("../../../../images/icon/like-active.svg") no-repeat;
+  background: url("../../../../images/icon/like-active.svg") no-repeat;
 }
 
 .photo__like_active:hover {
-    transform: none;
-    opacity: 1;
+  transform: none;
+  opacity: 1;
 }
