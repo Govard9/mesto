@@ -11,7 +11,7 @@
   line-height: 22px;
   text-align: center;
   padding: 0;
-  margin-bottom: 37px;
+  margin: 0 auto 37px auto;
 }
 
 .popup__button:hover {
@@ -24,6 +24,6 @@
   .popup__button {
     max-width: 238px;
     height: 46px;
-    padding: 0;
+    margin: 0 auto 25px 22px;
   }
 }
