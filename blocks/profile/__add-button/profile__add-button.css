@@ -5,6 +5,9 @@
   margin-left: auto;
   margin-top: 35px;
   transition: 0.3s ease;
+  border-radius: 2px;
+  border: 1px;
+  padding: 0;
 }
 
 .profile__add-button:hover {

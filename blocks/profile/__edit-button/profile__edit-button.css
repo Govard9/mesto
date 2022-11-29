@@ -1,7 +1,11 @@
 .profile__edit-button {
+  background: url("../../../images/icon/edit-button.svg") no-repeat;
   width: 24px;
+  height: 24px;
   padding: 5px 0 0 18px;
   transition: 0.3s ease;
+  margin-top: 15px;
+  border: 1px;
 }
 
 .profile__edit-button:hover {
@@ -10,9 +14,11 @@
   cursor: pointer;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 420px) {
   .profile__edit-button {
+    background-size: 18px;
     width: 18px;
-    padding: 0 0 0 10px;
+    height: 18px;
+    margin-top: 8px;
   }
 }

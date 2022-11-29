@@ -17,25 +17,19 @@
     </header>
     <main class="content">
       <section class="profile">
-        <div class="profile__avatar-block">
-          <img
-            src="./images/avatar/jak-iv-kusto.jpg"
-            alt=" Аватар профиля пользователя."
-            class="profile__avatar"
-          />
-        </div>
+        <img
+          src="./images/avatar/jak-iv-kusto.jpg"
+          alt=" Аватар профиля пользователя."
+          class="profile__avatar"
+        />
         <div class="profile__info">
           <div class="profile__info-text">
             <h1 class="profile__author">Жак-Ив Кусто</h1>
-            <img
-              src="./images/icon/edit-button.svg"
-              alt=" Кнопка для редактирования профиля."
-              class="profile__edit-button"
-            />
+            <button class="profile__edit-button" type="button"></button>
           </div>
           <p class="profile__profession">Исследователь океана</p>
         </div>
-        <div class="profile__add-button"></div>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section class="photo">
         <article class="photo__elements">
@@ -46,7 +40,7 @@
           />
           <div class="photo__info">
             <p class="photo__signature">Плотина</p>
-            <div class="photo__like"></div>
+            <button class="photo__like" type="button"></button>
           </div>
         </article>
         <article class="photo__elements">
@@ -57,7 +51,7 @@
           />
           <div class="photo__info">
             <p class="photo__signature">Домбай</p>
-            <div class="photo__like"></div>
+            <button class="photo__like" type="button"></button>
           </div>
         </article>
         <article class="photo__elements">
@@ -68,7 +62,7 @@
           />
           <div class="photo__info">
             <p class="photo__signature">Эльбрус</p>
-            <div class="photo__like"></div>
+            <button class="photo__like" type="button"></button>
           </div>
         </article>
         <article class="photo__elements">
@@ -79,7 +73,7 @@
           />
           <div class="photo__info">
             <p class="photo__signature">Церковь</p>
-            <div class="photo__like"></div>
+            <button class="photo__like" type="button"></button>
           </div>
         </article>
         <article class="photo__elements">
@@ -90,7 +84,7 @@
           />
           <div class="photo__info">
             <p class="photo__signature">Пастбища в Китае</p>
-            <div class="photo__like"></div>
+            <button class="photo__like" type="button"></button>
           </div>
         </article>
         <article class="photo__elements">
@@ -101,7 +95,7 @@
           />
           <div class="photo__info">
             <p class="photo__signature">Пик Чукаш</p>
-            <div class="photo__like"></div>
+            <button class="photo__like" type="button"></button>
           </div>
         </article>
       </section>
@@ -111,11 +105,7 @@
     </footer>
     <div class="popup">
       <div class="popup__main-container">
-        <img
-          src="./images/icon/close-icon.svg"
-          alt=" Кнопка закрытия всплывающего окна."
-          class="popup__close"
-        />
+        <button class="popup__close" type="button"></button>
         <form class="popup__form" name="form">
           <h2 class="popup__text">Редактировать профиль</h2>
           <input
