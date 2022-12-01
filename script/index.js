@@ -15,15 +15,13 @@ let nameInput = formElement.querySelector('.popup__input_data_name');
 let jobInput = formElement.querySelector('.popup__input_data_profession');
 
 function openPopup() {
-  popup.classList.add('popup_opened');
   nameInput.value = profileAuthor.textContent;
   jobInput.value = profileProfession.textContent;
+  popup.classList.add('popup_opened');
 }
 
 function closePopup() {
-  popup.querySelector('.popup');
   popup.classList.remove('popup_opened');
-  
 }
 
 // Обработчик «отправки» формы, хотя пока
