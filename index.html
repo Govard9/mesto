@@ -25,100 +25,138 @@
         <div class="profile__info">
           <div class="profile__info-text">
             <h1 class="profile__author">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button" type="button"></button>
+            <button
+              class="profile__edit-button"
+              type="button"
+              aria-label="редактирования профиля"
+            ></button>
           </div>
           <p class="profile__profession">Исследователь океана</p>
         </div>
-        <button class="profile__add-button" type="button"></button>
+        <button
+          class="profile__add-button"
+          type="button"
+          aria-label="добавления новой карточки"
+        ></button>
       </section>
       <section class="photo">
-        <article class="photo__elements">
+        <article class="card">
           <img
             src="./images/bobrovaya_plotina.jpg"
             alt=" Бобровая плотина на середине озера."
-            class="photo__element"
+            class="card__element"
           />
-          <div class="photo__info">
-            <p class="photo__signature">Плотина</p>
-            <button class="photo__like" type="button"></button>
+          <div class="card__info">
+            <h2 class="card__signature">Плотина</h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="поставить лайк"
+            ></button>
           </div>
         </article>
-        <article class="photo__elements">
+        <article class="card">
           <img
             src="./images/dombay.jpg"
             alt=" Густой лес среди снежных острых гор."
-            class="photo__element"
+            class="card__element"
           />
-          <div class="photo__info">
-            <p class="photo__signature">Домбай</p>
-            <button class="photo__like" type="button"></button>
+          <div class="card__info">
+            <h2 class="card__signature">Домбай</h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="поставить лайк"
+            ></button>
           </div>
         </article>
-        <article class="photo__elements">
+        <article class="card">
           <img
             src="./images/gora_elbrus.jpg"
             alt=" Вид на гору Эльбрус из далека."
-            class="photo__element"
+            class="card__element"
           />
-          <div class="photo__info">
-            <p class="photo__signature">Эльбрус</p>
-            <button class="photo__like" type="button"></button>
+          <div class="card__info">
+            <h2 class="card__signature">Эльбрус</h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="поставить лайк"
+            ></button>
           </div>
         </article>
-        <article class="photo__elements">
+        <article class="card">
           <img
             src="./images/karachaevsk.jpg"
             alt=" Вид на церковь в лесных горах."
-            class="photo__element"
+            class="card__element"
           />
-          <div class="photo__info">
-            <p class="photo__signature">Церковь</p>
-            <button class="photo__like" type="button"></button>
+          <div class="card__info">
+            <h2 class="card__signature">Церковь</h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="поставить лайк"
+            ></button>
           </div>
         </article>
-        <article class="photo__elements">
+        <article class="card">
           <img
             src="./images/pastbishe_v_kitae.jpg"
             alt=" Пастбища в зеленых гладких горах."
-            class="photo__element"
+            class="card__element"
           />
-          <div class="photo__info">
-            <p class="photo__signature">Пастбища в Китае</p>
-            <button class="photo__like" type="button"></button>
+          <div class="card__info">
+            <h2 class="card__signature">Пастбища в Китае</h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="поставить лайк"
+            ></button>
           </div>
         </article>
-        <article class="photo__elements">
+        <article class="card">
           <img
             src="./images/pik_chukash.jpg"
             alt=" Человек стоит на острие горы и смотрит на долину Пик Чукаш."
-            class="photo__element"
+            class="card__element"
           />
-          <div class="photo__info">
-            <p class="photo__signature">Пик Чукаш</p>
-            <button class="photo__like" type="button"></button>
+          <div class="card__info">
+            <h2 class="card__signature">Пик Чукаш</h2>
+            <button
+              class="card__like"
+              type="button"
+              aria-label="поставить лайк"
+            ></button>
           </div>
         </article>
       </section>
     </main>
     <footer class="footer">
-      <p class="footer__author">© 2020 Mesto Russia</p>
+      <p class="footer__author">&copy; 2020 Mesto Russia</p>
     </footer>
     <div class="popup">
       <div class="popup__main-container">
-        <button class="popup__close" type="button"></button>
+        <button
+          class="popup__close-button"
+          type="button"
+          aria-label="закрыть всплывающее окно"
+        ></button>
+        <h2 class="popup__text">Редактировать профиль</h2>
         <form class="popup__form" name="form">
-          <h2 class="popup__text">Редактировать профиль</h2>
           <input
             type="text"
             name="firstname"
-            class="popup__item popup__item_data_name"
+            required
+            class="popup__input popup__input_data_name"
           />
           <input
             type="text"
             name="profession"
-            class="popup__item popup__item_data_profession"
+            required
+            class="popup__input popup__input_data_profession"
           />
-          <input type="submit" value="Сохранить" class="popup__button" />
+          <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
       </div>
     </div>

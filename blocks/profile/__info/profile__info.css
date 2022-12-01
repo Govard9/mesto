@@ -12,10 +12,18 @@
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 368px) {
+  .profile__info {
+    max-width: 300px;
+    padding: 0 0 0 35px;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 334px) {
   .profile__info {
     max-width: 282px;
-    padding: 0 0 0 28px;
+    padding: 0 0 0 35px;
     text-align: center;
   }
 }

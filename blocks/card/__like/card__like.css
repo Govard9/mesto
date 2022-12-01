@@ -1,20 +1,20 @@
-.photo__like {
+.card__like {
   background: url("../../../images/icon/like.svg") no-repeat;
   width: 22px;
   height: 19px;
   transition: 0.3s ease;
   margin: 5px 3px 0 0;
   border: 0;
+  transition: opacity 0.3s ease;
 }
 
-.photo__like:hover {
+.card__like:hover {
   opacity: 0.5;
-  transition: opacity 0.3s ease;
   cursor: pointer;
 }
 
 @media screen and (max-width: 320px) {
-  .photo__like {
+  .card__like {
     padding-right: 2px;
   }
 }

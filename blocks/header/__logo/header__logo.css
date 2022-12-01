@@ -2,7 +2,7 @@
 }
 
 @media screen and (max-width: 910px) {
-  .header {
+  .header__logo {
     padding-left: 20px;
   }
 }
@@ -10,6 +10,6 @@
 @media screen and (max-width: 320px) {
   .header__logo {
     max-width: 103px;
-    padding-left: 8px;
+    padding-left: 27px;
   }
 }
