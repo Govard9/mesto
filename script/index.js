@@ -34,13 +34,29 @@ let popup = document.querySelector('.popup');
 let profileAuthor = document.querySelector('.profile__author');
 let profileProfession = document.querySelector('.profile__profession');
 
-// Закрытие popup
-let buttonClosePopup = document.querySelector('.popup__close-button');
-
 // Сохранение информации в попап
 let formElement = document.querySelector('.popup__main-container');
 let nameInput = formElement.querySelector('.popup__input_data_name');
 let jobInput = formElement.querySelector('.popup__input_data_profession');
+
+// Закрытие popup
+let buttonClosePopup = document.querySelector('.popup__close-button');
+
+// Открытие popup-add
+let buttonAddCard = document.querySelector('.profile__add-button');
+let popupAdd = document.querySelector('.popup-add');
+
+// // Выберите элементы, куда должны быть вставлены значения полей в popup-add
+// let cardSignature = document.querySelector('.card__signature');
+// let cardElement = document.querySelector('.card__element');
+
+// Закрытие popup-add
+let buttonClosePopupAdd = document.querySelector('.popup-add__close-button');
+
+// // Сохранение информации в popup-add
+// let formElementMainContainer = document.querySelector('.popup-add__main-container');
+// let titleInput = formElementMainContainer.querySelector('.popup-add__input_data_title');
+// let linkImgInput = formElementMainContainer.querySelector('.popup-add__input_data_link-img');
 
 function openPopup() {
   nameInput.value = profileAuthor.textContent;
@@ -50,6 +66,14 @@ function openPopup() {
 
 function closePopup() {
   popup.classList.remove('popup_opened');
+}
+
+function openPopupAdd() {
+  popupAdd.classList.add('popup-add_opened');
+}
+
+function closePopupAdd() {
+  popupAdd.classList.remove('popup-add_opened');
 }
 
 // Обработчик «отправки» формы, хотя пока
@@ -63,9 +87,11 @@ function handleFormSubmit(evt) {
   closePopup()
 }
 
+buttonEditProfile.addEventListener('click', openPopup);
 buttonClosePopup.addEventListener('click', closePopup);
 
-buttonEditProfile.addEventListener('click', openPopup);
+buttonAddCard.addEventListener('click', openPopupAdd);
+buttonClosePopupAdd.addEventListener('click', closePopupAdd);
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
