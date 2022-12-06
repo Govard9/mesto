@@ -26,6 +26,10 @@ const initialCards = [
   }
 ]; 
 
+// Добавление массива с инфой в карточки
+const cardsImg = document.querySelectorAll('.card__element');
+const cardsName = document.querySelectorAll('.card__signature')
+
 // Открытие popup
 let buttonEditProfile = document.querySelector('.profile__edit-button');
 let popup = document.querySelector('.popup');
@@ -46,17 +50,20 @@ let buttonClosePopup = document.querySelector('.popup__close-button');
 let buttonAddCard = document.querySelector('.profile__add-button');
 let popupAdd = document.querySelector('.popup-add');
 
-// // Выберите элементы, куда должны быть вставлены значения полей в popup-add
-// let cardSignature = document.querySelector('.card__signature');
-// let cardElement = document.querySelector('.card__element');
+// Выберите элементы, куда должны быть вставлены значения полей в popup-add
+let cardSignature = document.querySelector('.card__signature');
+let cardElement = document.querySelector('.card__element');
 
 // Закрытие popup-add
 let buttonClosePopupAdd = document.querySelector('.popup-add__close-button');
 
-// // Сохранение информации в popup-add
-// let formElementMainContainer = document.querySelector('.popup-add__main-container');
-// let titleInput = formElementMainContainer.querySelector('.popup-add__input_data_title');
-// let linkImgInput = formElementMainContainer.querySelector('.popup-add__input_data_link-img');
+// Сохранение информации в popup-add
+let formElementMainContainer = document.querySelector('.popup-add__main-container');
+let titleInput = formElementMainContainer.querySelector('.popup-add__input_data_title');
+let linkImgInput = formElementMainContainer.querySelector('.popup-add__input_data_link-img');
+
+// Лайки для карточек
+let like = document.querySelectorAll('.card__like');
 
 function openPopup() {
   nameInput.value = profileAuthor.textContent;
@@ -87,6 +94,30 @@ function handleFormSubmit(evt) {
   closePopup()
 }
 
+function handleformElementMainContainer(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+
+  initialCards.unshift({
+    name: titleInput.value,
+    link: linkImgInput.value
+  })
+  cardsImg.forEach((elem, index) => elem.src = initialCards[index].link);
+  cardsName.forEach((elem, index) => elem.textContent = initialCards[index].name);
+  
+  closePopupAdd()
+}
+
+// Перебор массива и добавления картинок и имён карточек
+cardsImg.forEach((elem, index) => elem.src = initialCards[index].link);
+cardsName.forEach((elem, index) => elem.textContent = initialCards[index].name);
+
+// Перебор всех лайков
+like.forEach((elem) => {
+  elem.addEventListener('click', () => {
+    elem.classList.add('card__like_active');
+  })
+});
+
 buttonEditProfile.addEventListener('click', openPopup);
 buttonClosePopup.addEventListener('click', closePopup);
 
@@ -96,3 +127,5 @@ buttonClosePopupAdd.addEventListener('click', closePopupAdd);
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', handleFormSubmit);
+
+formElementMainContainer.addEventListener('submit', handleformElementMainContainer);
