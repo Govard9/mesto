@@ -63,7 +63,11 @@ let titleInput = formElementMainContainer.querySelector('.popup-add__input_data_
 let linkImgInput = formElementMainContainer.querySelector('.popup-add__input_data_link-img');
 
 // Лайки для карточек
-let like = document.querySelectorAll('.card__like');
+const like = document.querySelectorAll('.card__like');
+
+// Кнопка удаления карточек
+const cards = document.querySelectorAll('.card');
+const btnDelete = document.querySelectorAll('.card__delete');
 
 function openPopup() {
   nameInput.value = profileAuthor.textContent;
@@ -100,7 +104,8 @@ function handleformElementMainContainer(evt) {
   initialCards.unshift({
     name: titleInput.value,
     link: linkImgInput.value
-  })
+  });
+  
   cardsImg.forEach((elem, index) => elem.src = initialCards[index].link);
   cardsName.forEach((elem, index) => elem.textContent = initialCards[index].name);
   
@@ -117,6 +122,13 @@ like.forEach((elem) => {
     elem.classList.add('card__like_active');
   })
 });
+
+// Удаление карт
+btnDelete.forEach((elem, index) => {
+  elem.addEventListener('click', () => {
+    cards[index].closest('.card').remove();
+  })
+})
 
 buttonEditProfile.addEventListener('click', openPopup);
 buttonClosePopup.addEventListener('click', closePopup);
