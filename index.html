@@ -189,10 +189,43 @@
             required
             class="popup-add__input popup-add__input_data_link-img"
           />
-          <button type="submit" class="popup-add__submit-button">Создать</button>
+          <button type="submit" class="popup-add__submit-button">
+            Создать
+          </button>
         </form>
       </div>
     </div>
+    <div class="popup-full">
+      <div class="popup-full__main-container">
+        <button
+          class="popup-full__close-button"
+          type="button"
+          aria-label="закрыть всплывающее окно"
+        ></button>
+        <figure class="popup-full__block-figure">
+          <img src="#" alt=" Картинка в полном формате." class="popup-full__img" />
+          <figcaption class="popup-full__text"></figcaption>
+        </figure>
+      </div>
+    </div>
+    <template id="new-card">
+      <article class="card">
+        <img
+          src=""
+          alt=" Бобровая плотина на середине озера."
+          class="card__element"
+        />
+        <button class="card__delete"></button>
+        <div class="card__info">
+          <h2 class="card__signature"></h2>
+          <button
+            class="card__like"
+            type="button"
+            aria-label="поставить лайк"
+          ></button>
+        </div>
+      </article>
+    </template>
     <script src="./script/index.js"></script>
   </body>
 </html>

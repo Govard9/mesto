@@ -7,4 +7,9 @@
     top: 20px;
     border: 0;
     cursor: pointer;
+    transition: opacity .3s ease;
+}
+
+.card__delete:hover {
+    opacity: 0.5;
 }
