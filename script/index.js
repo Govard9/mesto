@@ -45,8 +45,6 @@ const popupFullImageMod = document.querySelector('.popup_full-image');
 
 // Кнопка сохранить
 const buttonSaveInfoCard = popupAddCardMod.querySelector('.popup__main-container');
-const titleInputAddCard = buttonSaveInfoCard.querySelector('.popup__input_data_title');
-const linkInputAddCard = buttonSaveInfoCard.querySelector('.popup__input_data_link-img');
 
 // Темплейт
 const photo = document.querySelector('.photo');
@@ -60,11 +58,39 @@ const popupTextFigure = document.querySelector('.popup__text-figure');
 // Кнопка редактирования профиля
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 
-// Все попапы
-const popups = document.querySelectorAll('.popup');
-
 // Закрытие popup
 const buttonsClosePopup = document.querySelectorAll('.popup__close-button');
+
+function createCard(name, link) {
+  const cloneCard = clonePhoto.querySelector('.card').cloneNode(true);
+  cloneCard.querySelector('.card__element').src = link;
+  cloneCard.querySelector('.card__element').alt = name;
+  cloneCard.querySelector('.card__signature').textContent = name;
+
+  cloneCard.querySelector('.card__delete').addEventListener('click', () => {
+    cloneCard.remove();
+  })
+
+  cloneCard.querySelector('.card__like').addEventListener('click', () => {
+    cloneCard.querySelector('.card__like').classList.add('card__like_active')
+  })
+  
+  cloneCard.querySelector('.card__element').addEventListener('click', () => {
+    popupImg.src = cloneCard.querySelector('.card__element').src;
+    popupTextFigure.textContent = cloneCard.querySelector('.card__signature').textContent;
+    openPopup(popupFullImageMod);
+  })
+
+  return cloneCard;
+}
+
+function renderCard(name, link) {
+  photo.append(createCard(name, link));
+}
+
+initialCards.forEach(nameCard => {
+  renderCard(nameCard.name, nameCard.link)
+})
 
 function handleFormSubmit(evt) {
   evt.preventDefault(); 
@@ -73,81 +99,21 @@ function handleFormSubmit(evt) {
   closePopup(popupProfileMod);
 }
 
-function loadingAllCards() {
-  initialCards.forEach(elem => {
-    const cloneCard = clonePhoto.querySelector('.card').cloneNode(true);
-    cloneCard.querySelector('.card__element').src = elem.link;
-    cloneCard.querySelector('.card__element').alt = elem.name;
-    cloneCard.querySelector('.card__signature').textContent = elem.name;
-
-    photo.append(cloneCard); 
-
-    // Лайки
-    cloneCard.querySelectorAll('.card__like').forEach(elem => {
-      elem.addEventListener('click', () => {
-        elem.classList.add('card__like_active');
-      })
-    });
-
-    // Удаление карты
-    cloneCard.querySelectorAll('.card__delete').forEach(elem => {
-      elem.addEventListener('click', () => {
-        cloneCard.remove();
-      })
-    })
-
-    cloneCard.querySelectorAll('.card__element').forEach((elem) => {
-      elem.addEventListener('click', () => {
-        popupImg.src = elem.src;
-        popupTextFigure.textContent = document.querySelector('.card__signature').textContent;
-        popupFullImageMod.classList.add('popup_opened');
-      })
-    });
-  })
-}
-
-function createCard(item) {
-  // Клон карточек
-  item.querySelector('.card__element').src = linkInputAddCard.value;
-  item.querySelector('.card__element').alt = titleInputAddCard.value;
-  item.querySelector('.card__signature').textContent = titleInputAddCard.value;
-
-  item.querySelector('.card__delete').addEventListener('click', () => {
-      item.remove();
-    })
-
-  item.querySelector('.card__like').addEventListener('click', () => {
-    item.querySelector('.card__like').classList.add('card__like_active');
-    })
-
-  item.querySelectorAll('.card__element').forEach((elem) => {
-    elem.addEventListener('click', () => {
-      popupImg.src = elem.src;
-      popupTextFigure.textContent = document.querySelector('.card__signature').textContent;
-      popupFullImageMod.classList.add('popup_opened');
-    })
-  });
-  return item;
+function handleformElementMainContainer(evt) {
+  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+  const name = popupAddCardMod.querySelector('.popup__input_data_title').value;
+  const link = popupAddCardMod.querySelector('.popup__input_data_link-img').value;
+  photo.prepend(createCard(name, link))
+  evt.target.reset()
+  closePopup(popupAddCardMod);
 }
 
 function openPopup(popup) {
-  nameInput.value = profileAuthor.textContent;
-  jobInput.value = profileProfession.textContent;
   popup.classList.add('popup_opened');
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-}
-
-function handleformElementMainContainer(evt) {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  // Клон карточек
-  const cloneCard = clonePhoto.querySelector('.card').cloneNode(true);
-  createCard(cloneCard)
-  photo.prepend(cloneCard);
-  evt.target.reset()
-  closePopup(popupAddCardMod);
 }
 
 // обработчик кнопки сохранения инфы для профиля
@@ -156,15 +122,18 @@ formElement.addEventListener('submit', handleFormSubmit);
 // Обработчик для сохранение новой карты с разными функциями
 buttonSaveInfoCard.addEventListener('submit', handleformElementMainContainer);
 
-// обработчик открытия попапа
-buttonEditProfile.addEventListener('click', () => openPopup(popupProfileMod));
+// обработчик открытия попапа профиля
+buttonEditProfile.addEventListener('click', () => {
+  nameInput.value = profileAuthor.textContent;
+  jobInput.value = profileProfession.textContent;
+  openPopup(popupProfileMod)
+});
 buttonAddCard.addEventListener('click', () => openPopup(popupAddCardMod));
-// обработчик закрытия попапа
-popups.forEach(popup => {
-  buttonsClosePopup.forEach(btn => {
-    btn.addEventListener('click', () => closePopup(popup))
-  })
-})
 
-// Перебор массива и добавления картинок и имён карточек при загрузке страницы
-loadingAllCards()
+// Крестик попапов
+buttonsClosePopup.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап 
+  const popup = button.closest('.popup');
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener('click', () => closePopup(popup));
+});
