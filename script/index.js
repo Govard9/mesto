@@ -38,10 +38,14 @@ const jobInput = formElement.querySelector('.popup__input_data_profession');
 // Кнопка добавления карт
 const buttonAddCard = document.querySelector('.profile__add-button');
 
-// Ппопап карты
+// Попап карты
 const popupProfileMod = document.querySelector('.popup_profile-popup');
 const popupAddCardMod = document.querySelector('.popup_add-card');
 const popupFullImageMod = document.querySelector('.popup_full-image');
+
+// Инпуты формы добавления карт
+const inputTitle = popupAddCardMod.querySelector('.popup__input_data_title');
+const inputLinkImg = popupAddCardMod.querySelector('.popup__input_data_link-img');
 
 // Кнопка сохранить
 const buttonSaveInfoCard = popupAddCardMod.querySelector('.popup__main-container');
@@ -77,6 +81,7 @@ function createCard(name, link) {
   
   cloneCard.querySelector('.card__element').addEventListener('click', () => {
     popupImg.src = cloneCard.querySelector('.card__element').src;
+    popupImg.alt = cloneCard.querySelector('.card__signature').textContent;
     popupTextFigure.textContent = cloneCard.querySelector('.card__signature').textContent;
     openPopup(popupFullImageMod);
   })
@@ -101,9 +106,7 @@ function handleFormSubmit(evt) {
 
 function handleformElementMainContainer(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  const name = popupAddCardMod.querySelector('.popup__input_data_title').value;
-  const link = popupAddCardMod.querySelector('.popup__input_data_link-img').value;
-  photo.prepend(createCard(name, link))
+  photo.prepend(createCard(inputTitle.value, inputLinkImg.value))
   evt.target.reset()
   closePopup(popupAddCardMod);
 }
