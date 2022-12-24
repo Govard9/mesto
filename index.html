@@ -53,19 +53,27 @@
           aria-label="закрыть всплывающее окно"
         ></button>
         <h2 class="popup__text">Редактировать профиль</h2>
-        <form class="popup__form" name="form-edit-profile">
+        <form class="popup__form" name="form-edit-profile" novalidate>
           <input
             type="text"
             name="firstname"
             required
+            minlength="2"
+            maxlength="40"
             class="popup__input popup__input_data_name"
+            id="popup__input_data_name"
           />
+          <span class="popup__span-error popup__input_data_name-error"></span> 
           <input
             type="text"
             name="profession"
             required
+            minlength="2"
+            maxlength="200"
             class="popup__input popup__input_data_profession"
+            id="popup__input_data_profession"
           />
+          <span class="popup__span-error popup__input_data_profession-error"></span>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
       </div>
@@ -131,5 +139,6 @@
       </article>
     </template>
     <script src="./script/index.js"></script>
+    <script src="./script/validate.js"></script>
   </body>
 </html>

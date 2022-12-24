@@ -1,0 +1,16 @@
+.popup__span-error_active-error {
+  padding: 0 0 0 36px;
+  margin: 5px 0 0 0;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #ff0000;
+  min-height: 30px
+}
+
+@media screen and (max-width: 536px) {
+  .popup__span-error_active-error {
+    padding-left: 21px;
+    padding-bottom: 10px;
+  }
+}
