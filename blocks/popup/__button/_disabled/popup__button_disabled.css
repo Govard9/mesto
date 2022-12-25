@@ -1,4 +1,4 @@
-.popup__submit-button_inactive {
+.popup__button_disabled {
     color: #B8B8B8;
     background: #EDEDED;
     pointer-events: none;

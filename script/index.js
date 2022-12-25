@@ -26,6 +26,16 @@ const initialCards = [
   }
 ]; 
 
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  activeButtonClass: 'popup__button_active',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 // Элементы, куда должны быть вставлены значения полей
 const profileAuthor = document.querySelector('.profile__author');
 const profileProfession = document.querySelector('.profile__profession');
@@ -169,3 +179,5 @@ popups.forEach((elem) => {
   const popup = elem.closest('.popup');
   document.addEventListener('keydown', (evt) => keyHandler(evt, popup));
 });
+
+enableValidation(validationConfig);
