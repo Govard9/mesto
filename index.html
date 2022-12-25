@@ -86,21 +86,27 @@
           aria-label="закрыть всплывающее окно"
         ></button>
         <h2 class="popup__text">Новое место</h2>
-        <form class="popup__form" name="form-add-card">
+        <form class="popup__form" name="form-add-card" novalidate>
           <input
             type="text"
             name="title"
             placeholder="Название"
-            required
+            minlength="2"
+            maxlength="30"
             class="popup__input popup__input_data_title"
+            required
+            id="popup__input_data_title"
           />
+          <span class="popup__span-error popup__input_data_title-error"></span>
           <input
-            type="text"
+            type="url"
             name="link-card-img"
             placeholder="Ссылка на картинку"
             required
             class="popup__input popup__input_data_link-img"
+            id="popup__input_data_link-img"
           />
+          <span class="popup__span-error popup__input_data_link-img-error"></span>
           <button type="submit" class="popup__submit-button">
             Создать
           </button>
