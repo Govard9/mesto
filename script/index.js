@@ -38,6 +38,9 @@ const jobInput = formElement.querySelector('.popup__input_data_profession');
 // Кнопка добавления карт
 const buttonAddCard = document.querySelector('.profile__add-button');
 
+// все попапы
+const popups = document.querySelectorAll('.popup');
+
 // Попап карты
 const popupProfileMod = document.querySelector('.popup_profile-popup');
 const popupAddCardMod = document.querySelector('.popup_add-card');
@@ -119,6 +122,20 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 }
 
+// функция для закрытия попапа по клику вне формы
+function PopupContainerIsTrue(evt, popup) {
+  if (evt.target === popup) {
+    closePopup(popup);
+  }
+}
+
+// функция для закрытия попапа по нажатия на клавишу Escape
+function keyHandler(evt, popup) {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+}
+
 // обработчик кнопки сохранения инфы для профиля
 formElement.addEventListener('submit', handleFormSubmit);
 
@@ -139,4 +156,16 @@ buttonsClosePopup.forEach((button) => {
   const popup = button.closest('.popup');
   // устанавливаем обработчик закрытия на крестик
   button.addEventListener('click', () => closePopup(popup));
+});
+
+// обработчик всех попапов по клику
+popups.forEach((elem) => {
+  const popup = elem.closest('.popup');
+  popup.addEventListener('click', (evt) => PopupContainerIsTrue(evt, popup));
+});
+
+// обработчик всех попапов по клавише
+popups.forEach((elem) => {
+  const popup = elem.closest('.popup');
+  document.addEventListener('keydown', (evt) => keyHandler(evt, popup));
 });
