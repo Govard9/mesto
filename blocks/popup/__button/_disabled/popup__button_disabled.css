@@ -3,8 +3,5 @@
     background: #E5E5E5;
     border: 1px solid #000000;
     opacity: 0.2;
-}
-
-.popup__button_disabled {
     pointer-events: none;
 }
