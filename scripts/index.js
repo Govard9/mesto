@@ -1,31 +1,3 @@
-// массив с данными
-const initialCards = [
-  {
-    name: 'Плотина',
-    link: './images/bobrovaya_plotina.jpg'
-  },
-  {
-    name: 'Домбай',
-    link: './images/dombay.jpg'
-  },
-  {
-    name: 'Эльбрус',
-    link: './images/gora_elbrus.jpg'
-  },
-  {
-    name: 'Церковь',
-    link: './images/karachaevsk.jpg'
-  },
-  {
-    name: 'Пастбища в Китае',
-    link: './images/pastbishe_v_kitae.jpg'
-  },
-  {
-    name: 'Пик Чукаш',
-    link: './images/pik_chukash.jpg'
-  }
-]; 
-
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -64,7 +36,7 @@ const inputLinkImg = popupAddCardMod.querySelector('.popup__input_data_link-img'
 const buttonSaveInfoCard = popupAddCardMod.querySelector('.popup__main-container');
 
 // Темплейт
-const photo = document.querySelector('.photo');
+const cardList = document.querySelector('.photos');
 const clonePhoto = document.querySelector('#new-card').content;
 
 // изображение попапа
@@ -80,35 +52,37 @@ const buttonsClosePopup = document.querySelectorAll('.popup__close-button');
 
 function createCard(name, link) {
   const cloneCard = clonePhoto.querySelector('.card').cloneNode(true);
-  cloneCard.querySelector('.card__element').src = link;
-  cloneCard.querySelector('.card__element').alt = name;
-  cloneCard.querySelector('.card__signature').textContent = name;
+  const cardElement = cloneCard.querySelector('.card__element');
+  const cardSignature = cloneCard.querySelector('.card__signature');
+  const cardLike = cloneCard.querySelector('.card__like');
+
+  cardElement.src = link;
+  cardElement.alt = name;
+  cardSignature.textContent = name;
 
   cloneCard.querySelector('.card__delete').addEventListener('click', () => {
     cloneCard.remove();
   })
 
-  cloneCard.querySelector('.card__like').addEventListener('click', () => {
-    cloneCard.querySelector('.card__like').classList.add('card__like_active')
+  cardLike.addEventListener('click', () => {
+    cardLike.classList.toggle('card__like_active')
   })
   
-  cloneCard.querySelector('.card__element').addEventListener('click', () => {
-    popupImg.src = cloneCard.querySelector('.card__element').src;
-    popupImg.alt = cloneCard.querySelector('.card__signature').textContent;
-    popupTextFigure.textContent = cloneCard.querySelector('.card__signature').textContent;
+  cardElement.addEventListener('click', () => {
+    popupImg.src = link;
+    popupImg.alt = name;
+    popupTextFigure.textContent = cardSignature.textContent;
     openPopup(popupFullImageMod);
   })
 
   return cloneCard;
 }
 
-function renderCard(name, link) {
-  photo.append(createCard(name, link));
+function renderCard(initialCards) {
+  initialCards.forEach(nameCard => {
+    cardList.append(createCard(nameCard.name, nameCard.link));
+  })
 }
-
-initialCards.forEach(nameCard => {
-  renderCard(nameCard.name, nameCard.link)
-})
 
 function handleFormSubmit(evt) {
   evt.preventDefault(); 
@@ -119,13 +93,21 @@ function handleFormSubmit(evt) {
 
 function handleformElementMainContainer(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  photo.prepend(createCard(inputTitle.value, inputLinkImg.value))
-  evt.target.reset()
+  cardList.prepend(createCard(inputTitle.value, inputLinkImg.value));
+  evt.target.reset();
   closePopup(popupAddCardMod);
 }
 
 function openPopup(popup) {
+  const popupButton = popup.querySelector('.popup__button');
+
   popup.classList.add('popup_opened');
+  if (popupButton) {
+    popupButton.classList.remove(validationConfig.activeButtonClass);
+    popupButton.classList.add(validationConfig.inactiveButtonClass);
+  }
+  
+  document.addEventListener('keydown', (evt) => closePopupOnEscape(evt, popup));
 }
 
 function closePopup(popup) {
@@ -133,15 +115,16 @@ function closePopup(popup) {
 }
 
 // функция для закрытия попапа по клику вне формы
-function PopupContainerIsTrue(evt, popup) {
+function closePopupOnClick(evt, popup) {
   if (evt.target === popup) {
     closePopup(popup);
   }
 }
 
 // функция для закрытия попапа по нажатия на клавишу Escape
-function keyHandler(evt, popup) {
+function closePopupOnEscape(evt, popup) {
   if (evt.key === 'Escape') {
+    document.removeEventListener('keydown', (evt) => closePopupOnEscape(evt, popup));
     closePopup(popup);
   }
 }
@@ -171,13 +154,8 @@ buttonsClosePopup.forEach((button) => {
 // обработчик всех попапов по клику
 popups.forEach((elem) => {
   const popup = elem.closest('.popup');
-  popup.addEventListener('click', (evt) => PopupContainerIsTrue(evt, popup));
+  popup.addEventListener('click', (evt) => closePopupOnClick(evt, popup));
 });
 
-// обработчик всех попапов по клавише
-popups.forEach((elem) => {
-  const popup = elem.closest('.popup');
-  document.addEventListener('keydown', (evt) => keyHandler(evt, popup));
-});
-
+renderCard(initialCards);
 enableValidation(validationConfig);
