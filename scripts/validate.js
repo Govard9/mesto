@@ -2,6 +2,12 @@
 const formProfileEdit = document.querySelector('.popup__form');
 const formInputProfile = formProfileEdit.querySelector('.popup__input_data_name');
 
+const hideTheButton = (popupButton) => {
+  const button = popupButton.querySelector('.popup__button');
+  button.classList.add(validationConfig.inactiveButtonClass);
+  button.disabled = true;
+}
+
 const hideInputError = (formElement, inputElement, config) => {
   // Находим элемент ошибки
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -50,12 +56,10 @@ const toggleButtonState = (inputList, buttonElement, config) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
-    buttonElement.classList.remove(config.activeButtonClass);
     buttonElement.classList.add(config.inactiveButtonClass);
     buttonElement.disabled = true;
   } else {
     // иначе сделай кнопку активной
-    buttonElement.classList.add(config.activeButtonClass);
     buttonElement.classList.remove(config.inactiveButtonClass);
     buttonElement.disabled = false;
   }

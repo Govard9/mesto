@@ -2,7 +2,6 @@ const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
-  activeButtonClass: 'popup__button_active',
   inactiveButtonClass: 'popup__button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
@@ -84,14 +83,14 @@ function renderCard(initialCards) {
   })
 }
 
-function handleFormSubmit(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault(); 
   profileAuthor.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
   closePopup(popupProfileMod);
 }
 
-function handleformElementMainContainer(evt) {
+function handleFormSubmitEventAddCard(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   cardList.prepend(createCard(inputTitle.value, inputLinkImg.value));
   evt.target.reset();
@@ -99,49 +98,52 @@ function handleformElementMainContainer(evt) {
 }
 
 function openPopup(popup) {
-  const popupButton = popup.querySelector('.popup__button');
-
   popup.classList.add('popup_opened');
-  if (popupButton) {
-    popupButton.classList.remove(validationConfig.activeButtonClass);
-    popupButton.classList.add(validationConfig.inactiveButtonClass);
-  }
-  
-  document.addEventListener('keydown', (evt) => closePopupOnEscape(evt, popup));
+  document.addEventListener('keydown', closePopupOnEscape);
 }
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupOnEscape);
 }
 
 // функция для закрытия попапа по клику вне формы
-function closePopupOnClick(evt, popup) {
-  if (evt.target === popup) {
-    closePopup(popup);
+function closePopupOnClick(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+
+  if (evt.target === popupOpened) {
+    closePopup(popupOpened);
   }
 }
 
 // функция для закрытия попапа по нажатия на клавишу Escape
-function closePopupOnEscape(evt, popup) {
+function closePopupOnEscape(evt) {
+  const popupOpened = document.querySelector('.popup_opened');
+
   if (evt.key === 'Escape') {
-    document.removeEventListener('keydown', (evt) => closePopupOnEscape(evt, popup));
-    closePopup(popup);
+    closePopup(popupOpened);
   }
 }
 
 // обработчик кнопки сохранения инфы для профиля
-formElement.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', handleProfileFormSubmit);
 
 // Обработчик для сохранение новой карты с разными функциями
-buttonSaveInfoCard.addEventListener('submit', handleformElementMainContainer);
+buttonSaveInfoCard.addEventListener('submit', handleFormSubmitEventAddCard);
 
 // обработчик открытия попапа профиля
 buttonEditProfile.addEventListener('click', () => {
   nameInput.value = profileAuthor.textContent;
   jobInput.value = profileProfession.textContent;
+
+  hideTheButton(popupProfileMod);
   openPopup(popupProfileMod)
 });
-buttonAddCard.addEventListener('click', () => openPopup(popupAddCardMod));
+
+buttonAddCard.addEventListener('click', () => {
+  hideTheButton(popupAddCardMod);
+  openPopup(popupAddCardMod);
+});
 
 // Крестик попапов
 buttonsClosePopup.forEach((button) => {
