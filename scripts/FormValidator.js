@@ -1,14 +1,12 @@
-import { validationConfig } from "./index.js";
-
 export class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
   }
 
-_hideTheButton = (popupButton) => {
-  const button = popupButton.querySelector('.popup__button');
-  button.classList.add(validationConfig.inactiveButtonClass);
+hideTheButton = (popup, config) => {  
+  const button = popup.querySelector('.popup__button');
+  button.classList.add(config.inactiveButtonClass);
   button.disabled = true;
 }
 
