@@ -1,8 +1,6 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
-
-// Вынесем все необходимые элементы формы в константы
-const formProfileEdit = document.querySelector('.popup__form');
+import initialCards from './cards.js'
 
 export const validationConfig = {
   formSelector: '.popup__form',
@@ -13,33 +11,8 @@ export const validationConfig = {
   errorClass: 'popup__error_visible'
 }
 
-// массив с данными
-const initialCards = [
-  {
-    name: 'Плотина',
-    link: './images/bobrovaya_plotina.jpg'
-  },
-  {
-    name: 'Домбай',
-    link: './images/dombay.jpg'
-  },
-  {
-    name: 'Эльбрус',
-    link: './images/gora_elbrus.jpg'
-  },
-  {
-    name: 'Церковь',
-    link: './images/cerkov.jpg'
-  },
-  {
-    name: 'Пастбища в Китае',
-    link: './images/pastbishe_v_kitae.jpg'
-  },
-  {
-    name: 'Пик Чукаш',
-    link: './images/pik_chukash.jpg'
-  }
-]; 
+// Вынесем все необходимые элементы формы в константы
+const formProfileEdit = document.querySelector('.popup__form');
 
 // Элементы, куда должны быть вставлены значения полей
 const profileAuthor = document.querySelector('.profile__author');
@@ -110,7 +83,7 @@ export const handleClosePopup = (popup) => {
   document.removeEventListener('keydown', closePopupOnEscape);
 }
 
-export const handleFormSubmitEventAddCard = (evt) => {
+const handleFormSubmitEventAddCard = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
   const card = new Card({name: inputTitle.value, 
                         link: inputLinkImg.value}, '#new-card');
@@ -120,27 +93,23 @@ export const handleFormSubmitEventAddCard = (evt) => {
   handleClosePopup(popupAddCardMod);
 }
 
-export const handleProfileFormSubmit = (evt) => {
+const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   profileAuthor.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
   handleClosePopup(popupProfileMod);
 }
 
-const handleClickPlus = () => {
-  const formValidPlus = new FormValidator();
-  formValidPlus.hideTheButton(popupAddCardMod, validationConfig);
-
+const handleOpenAddCard = () => {
+  formValidAddCard.resetValidation();
   handleOpenPopup(popupAddCardMod);
 }
 
 const handleOpenProfilePopup = () => {
   nameInput.value = profileAuthor.textContent;
   jobInput.value = profileProfession.textContent;
-
-  const formValidProfile = new FormValidator();
-  formValidProfile.hideTheButton(popupProfileMod, validationConfig);
-
+  
+  formValidProfile.resetValidation();
   handleOpenPopup(popupProfileMod);
 }
 
@@ -154,7 +123,7 @@ buttonsClosePopup.forEach((button) => {
 
 // Обработчик нажатия на +
 buttonAddCard.addEventListener('click', () => {
-  handleClickPlus();
+  handleOpenAddCard();
 });
 
 buttonSaveInfoCard.addEventListener('submit', handleFormSubmitEventAddCard);
@@ -170,7 +139,7 @@ buttonEditProfile.addEventListener('click', () => {
 // обработчик всех попапов по клику
 popups.forEach((elem) => {
   const popup = elem.closest('.popup');
-  popup.addEventListener('click', (evt) => closePopupOnClick(evt, popup));
+  popup.addEventListener('click', (evt) => closePopupOnClick(evt));
 });
 
 initialCards.forEach((item) => {
@@ -182,9 +151,9 @@ initialCards.forEach((item) => {
 });
 
 const formValidProfile = new FormValidator(validationConfig, popupProfileMod);
-formValidProfile.enableValidation(validationConfig);
+formValidProfile.enableValidation();
 
 const formValidAddCard = new FormValidator(validationConfig, popupAddCardMod);
-formValidAddCard.enableValidation(validationConfig);
+formValidAddCard.enableValidation();
 
 export { popupFullImageMod, popupImg, popupTextFigure };

@@ -22,6 +22,7 @@ export class Card {
   
       this._element.querySelector('.card__signature').textContent = this._name;
       this._element.querySelector('.card__element').src = this._link;
+      this._element.querySelector('.card__element').alt = this._name;
   
       this._setEventListeners();
       
