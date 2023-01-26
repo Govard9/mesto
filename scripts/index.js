@@ -101,7 +101,11 @@ const handleProfileFormSubmit = (evt) => {
 }
 
 const handleOpenAddCard = () => {
+  inputTitle.value = '';
+  inputLinkImg.value = '';
+  
   formValidAddCard.resetValidation();
+  
   handleOpenPopup(popupAddCardMod);
 }
 

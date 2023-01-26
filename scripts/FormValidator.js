@@ -53,30 +53,34 @@ _hasInvalidInput = (inputList) => {
   })
 }; 
 
+_disableSubmitButton = () => {
+  this._buttonElement.classList.add(this._inactiveButtonClass);
+  this._buttonElement.disabled = true;
+}
+
+_enableSubmitButton = () => {
+  this._buttonElement.classList.remove(this._inactiveButtonClass);
+  this._buttonElement.disabled = false;
+}
+
 // Функция принимает массив полей ввода
 // и элемент кнопки, состояние которой нужно менять
-_toggleButtonState = (inputList, buttonElement) => {
+_toggleButtonState = (inputList) => {
   // Если есть хотя бы один невалидный инпут
   if (this._hasInvalidInput(inputList)) {
     // сделай кнопку неактивной
-    buttonElement.classList.add(this._inactiveButtonClass);
-    buttonElement.disabled = true;
+    this._disableSubmitButton();
   } else {
     // иначе сделай кнопку активной
-    buttonElement.classList.remove(this._inactiveButtonClass);
-    buttonElement.disabled = false;
+    this._enableSubmitButton();
   }
 };
 
 resetValidation = () => {  
-  this._buttonElement.classList.add(this._inactiveButtonClass);
-  this._buttonElement.disabled = true;
+  this._disableSubmitButton();
 
   this._inputList.forEach((inputElement) => {
-  const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
-  // Остальной код такой же
-  errorElement.classList.remove(this._errorClass);
-  errorElement.textContent = '';
+    this._hideInputError(inputElement);
   })
 }
 
