@@ -1,6 +1,7 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
 import initialCards from './cards.js'
+import '../pages/index.css'; // добавьте импорт главного файла стилей
 
 export const validationConfig = {
   formSelector: '.popup__form',

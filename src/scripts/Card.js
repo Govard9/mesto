@@ -1,4 +1,4 @@
-import * as index from "../scripts/index.js";
+import * as index from "./index.js";
 
 export class Card {
     constructor(data, templateSelector) {
