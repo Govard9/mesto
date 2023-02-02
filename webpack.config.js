@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require("clean-webpack-plugin"); // подклю�
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // подключите к проекту mini-css-extract-plugin
 
 module.exports = {
-  entry: { main: "./src/scripts/index.js" }, // указали первое место, куда заглянет webpack, — файл index.js в папке src
+  entry: { main: "./src/pages/index.js" }, // указали первое место, куда заглянет webpack, — файл index.js в папке src
   output: {
     path: path.resolve(__dirname, "dist"), // указали в какой файл будет собираться весь js. __dirname - это корневая папка проекта.
     filename: "main.js", // и дали ему имя

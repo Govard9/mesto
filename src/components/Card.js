@@ -1,4 +1,4 @@
-import * as index from "./index.js";
+import * as index from "../pages/index.js";
 
 export class Card {
     constructor(data, templateSelector) {
@@ -33,7 +33,7 @@ export class Card {
       index.popupImg.alt = this._name;
       index.popupImg.src = this._link;
       index.popupTextFigure.textContent = this._name;
-      index.handleOpenPopup(index.popupFullImageMod);
+      // index.handleOpenPopup(index.popupFullImageMod);
     }
 
     _handleDeleteCard() {

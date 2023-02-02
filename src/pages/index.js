@@ -1,8 +1,9 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { Section } from './Section.js';
-import initialCards from './cards.js'
-import '../pages/index.css'; // добавьте импорт главного файла стилей
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { Section } from '../components/Section.js';
+import { Popup } from '../components/Popup.js';
+import initialCards from '../components/cards.js'
+import './index.css'; // добавьте импорт главного файла стилей
 
 export const validationConfig = {
   formSelector: '.popup__form',
@@ -62,27 +63,9 @@ export const closePopupOnClick = (evt) => {
   const popupOpened = document.querySelector('.popup_opened');
 
   if (evt.target === popupOpened) {
-    handleClosePopup(popupOpened);
+    const popup = new Popup(popupOpened);
+    popup.close();
   }
-}
-
-// функция для закрытия попапа по нажатия на клавишу Escape
-export const closePopupOnEscape = (evt) => {
-
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    handleClosePopup(popupOpened);
-  }
-}
-
-export const handleOpenPopup = (popup) => {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupOnEscape);
-} 
-
-export const handleClosePopup = (popup) => {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupOnEscape);
 }
 
 const handleFormSubmitEventAddCard = (evt) => {
@@ -108,7 +91,8 @@ const handleOpenAddCard = () => {
   
   formValidAddCard.resetValidation();
   
-  handleOpenPopup(popupAddCardMod);
+  const popup = new Popup(popupAddCardMod);
+  popup.open();
 }
 
 const handleOpenProfilePopup = () => {
@@ -116,7 +100,8 @@ const handleOpenProfilePopup = () => {
   jobInput.value = profileProfession.textContent;
   
   formValidProfile.resetValidation();
-  handleOpenPopup(popupProfileMod);
+  const popup = new Popup(popupProfileMod);
+  popup.open();
 }
 
 // Отправляет разметку в класс Section
@@ -132,9 +117,11 @@ const cardsListSection = new Section({
 // Закрытие попапа по крестику
 buttonsClosePopup.forEach((button) => {
   // находим 1 раз ближайший к крестику попап 
-  const popup = button.closest('.popup');
+  const nearPopup = button.closest('.popup');
   // устанавливаем обработчик закрытия на крестик
-  button.addEventListener('click', () => handleClosePopup(popup));
+  const popup = new Popup(nearPopup);
+  popup.setEventListeners();
+  // button.addEventListener('click', () => handleClosePopup(popup));
 });
 
 // Обработчик нажатия на +
