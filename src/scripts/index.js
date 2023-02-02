@@ -1,5 +1,6 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
+import { Section } from './Section.js';
 import initialCards from './cards.js'
 import '../pages/index.css'; // добавьте импорт главного файла стилей
 
@@ -117,6 +118,16 @@ const handleOpenProfilePopup = () => {
   formValidProfile.resetValidation();
   handleOpenPopup(popupProfileMod);
 }
+
+// Отправляет разметку в класс Section
+const cardsListSection = new Section({
+  data: initialCards,
+  renderer: (item) => {
+    const card = new Card(item, '#new-card');
+    const cardElement = card.generateCard();
+    cardsListSection.addItem(cardElement);
+  }
+}, ".photos");
 
 // Закрытие попапа по крестику
 buttonsClosePopup.forEach((button) => {
