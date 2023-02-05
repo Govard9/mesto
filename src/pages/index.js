@@ -65,27 +65,30 @@ export const closePopupOnClick = (evt) => {
   const popupOpened = document.querySelector('.popup_opened');
 
   if (evt.target === popupOpened) {
-    const popup = new Popup(popupOpened);
+    const popup = new Popup('.popup_opened');
     popup.close();
   }
 }
 
-const handleFormSubmitEventAddCard = (evt) => {
-  evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  const popupWithForm = new PopupWithForm({
-    handleFormSubmit: (item) => {
-      const card = new Card({
-        item
-      }, '#new-card');
-      const newCard = card.generateCard();
-      cardList.prepend(newCard);
-    }
-  }, popupAddCardMod);
-  
-  evt.target.reset();
-  const popup = new Popup(popupAddCardMod);
-  popup.close();
-}
+// const handleFormSubmitEventAddCard = (evt) => {
+//   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+//   const form = new PopupWithForm(buttonSaveInfoCard, {
+//     // объект, который мы передадим при вызове handleFormSubmit
+//     // окажется на месте параметра formData
+//     handleFormSubmit: (formData) => {
+//       const card = new Card({ item: formData,
+//         handleCardClick: () => {
+//           const popupWithImage = new PopupWithImage(popupFullImageMod);
+//           popupWithImage.open({ name: item, link: item });
+//         }
+//       },
+//         '#new-card');
+//       const cardElement = card.generateCard();
+//       cardList.prepend(cardElement);
+//     }
+//   }); 
+//   form.setEventListeners();
+// }
 
 // Отправляет разметку в класс Section
 const cardsListSection = new Section({
@@ -93,7 +96,7 @@ const cardsListSection = new Section({
   renderer: (item) => {
     const card = new Card({ item: item,
       handleCardClick: () => {
-        const popupWithImage = new PopupWithImage(popupFullImageMod);
+        const popupWithImage = new PopupWithImage('.popup_full-image');
         popupWithImage.open({ name: item.name, link: item.link });
       }
     },
@@ -108,7 +111,7 @@ const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   profileAuthor.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
-  const popup = new Popup(popupProfileMod);
+  const popup = new Popup('.popup_profile-popup');
   popup.close();
 }
 
@@ -118,8 +121,25 @@ const handleOpenAddCard = () => {
   
   formValidAddCard.resetValidation();
   
-  const popup = new Popup(popupAddCardMod);
+  const popup = new Popup('.popup_add-card');
   popup.open();
+  // Добавление карт на сайт
+  const form = new PopupWithForm('.popup_add-card', {
+    // объект, который мы передадим при вызове handleFormSubmit
+    // окажется на месте параметра formData
+    handleFormSubmit: (formData) => {
+      const card = new Card({ item: formData,
+        handleCardClick: () => {
+          const popupWithImage = new PopupWithImage('.popup_full-image');
+          popupWithImage.open({ name: formData.name, link: formData.link });
+        }
+      },
+        '#new-card');
+      const cardElement = card.generateCard();
+      cardList.prepend(cardElement);
+    }
+  }); 
+  form.setEventListeners();
 }
 
 const handleOpenProfilePopup = () => {
@@ -127,7 +147,7 @@ const handleOpenProfilePopup = () => {
   jobInput.value = profileProfession.textContent;
   
   formValidProfile.resetValidation();
-  const popup = new Popup(popupProfileMod);
+  const popup = new Popup('.popup_profile-popup');
   popup.open();
 }
 
@@ -145,8 +165,6 @@ const handleOpenProfilePopup = () => {
 buttonAddCard.addEventListener('click', () => {
   handleOpenAddCard();
 });
-
-buttonSaveInfoCard.addEventListener('submit', handleFormSubmitEventAddCard);
 
 // обработчик кнопки сохранения инфы для профиля
 formProfileEdit.addEventListener('submit', (evt) => handleProfileFormSubmit(evt));
