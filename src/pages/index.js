@@ -4,6 +4,8 @@ import { Section } from '../components/Section.js';
 import { Popup } from '../components/Popup.js';
 import initialCards from '../components/cards.js'
 import './index.css'; // добавьте импорт главного файла стилей
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
 
 export const validationConfig = {
   formSelector: '.popup__form',
@@ -70,19 +72,44 @@ export const closePopupOnClick = (evt) => {
 
 const handleFormSubmitEventAddCard = (evt) => {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-  const card = new Card({name: inputTitle.value, 
-                        link: inputLinkImg.value}, '#new-card');
-  const cardElement = card.generateCard();
-  cardList.prepend(cardElement);
+  const popupWithForm = new PopupWithForm({
+    handleFormSubmit: (item) => {
+      const card = new Card({
+        item
+      }, '#new-card');
+      const newCard = card.generateCard();
+      cardList.prepend(newCard);
+    }
+  }, popupAddCardMod);
+  
   evt.target.reset();
-  handleClosePopup(popupAddCardMod);
+  const popup = new Popup(popupAddCardMod);
+  popup.close();
 }
+
+// Отправляет разметку в класс Section
+const cardsListSection = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card({ item: item,
+      handleCardClick: () => {
+        const popupWithImage = new PopupWithImage(popupFullImageMod);
+        popupWithImage.open({ name: item.name, link: item.link });
+      }
+    },
+      '#new-card');
+    const cardElement = card.generateCard();
+    cardsListSection.addItem(cardElement);
+  }
+}, ".photos");
+cardsListSection.renderItems();
 
 const handleProfileFormSubmit = (evt) => {
   evt.preventDefault(); 
   profileAuthor.textContent = nameInput.value;
   profileProfession.textContent = jobInput.value;
-  handleClosePopup(popupProfileMod);
+  const popup = new Popup(popupProfileMod);
+  popup.close();
 }
 
 const handleOpenAddCard = () => {
@@ -104,25 +131,15 @@ const handleOpenProfilePopup = () => {
   popup.open();
 }
 
-// Отправляет разметку в класс Section
-const cardsListSection = new Section({
-  data: initialCards,
-  renderer: (item) => {
-    const card = new Card(item, '#new-card');
-    const cardElement = card.generateCard();
-    cardsListSection.addItem(cardElement);
-  }
-}, ".photos");
-
-// Закрытие попапа по крестику
-buttonsClosePopup.forEach((button) => {
-  // находим 1 раз ближайший к крестику попап 
-  const nearPopup = button.closest('.popup');
-  // устанавливаем обработчик закрытия на крестик
-  const popup = new Popup(nearPopup);
-  popup.setEventListeners();
-  // button.addEventListener('click', () => handleClosePopup(popup));
-});
+// // Закрытие попапа по крестику
+// buttonsClosePopup.forEach((button) => {
+//   // находим 1 раз ближайший к крестику попап 
+//   const nearPopup = button.closest('.popup');
+//   // устанавливаем обработчик закрытия на крестик
+//   const popup = new Popup(nearPopup);
+//   popup.setEventListeners();
+//   // button.addEventListener('click', () => handleClosePopup(popup));
+// });
 
 // Обработчик нажатия на +
 buttonAddCard.addEventListener('click', () => {
@@ -145,13 +162,15 @@ popups.forEach((elem) => {
   popup.addEventListener('click', (evt) => closePopupOnClick(evt));
 });
 
-initialCards.forEach((item) => {
-  const card = new Card(item, '#new-card');
-  const cardElement = card.generateCard();
+// initialCards.forEach((item) => {
+//   const card = new Card(item, '#new-card');
+//   const cardElement = card.generateCard();
 
-  // Добавляем в DOM
-  document.querySelector('.photos').append(cardElement);
-});
+//   // Добавляем в DOM
+//   document.querySelector('.photos').append(cardElement);
+// });
+
+
 
 const formValidProfile = new FormValidator(validationConfig, popupProfileMod);
 formValidProfile.enableValidation();

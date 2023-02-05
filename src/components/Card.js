@@ -1,10 +1,9 @@
-import * as index from "../pages/index.js";
-
 export class Card {
-    constructor(data, templateSelector) {
-      this._name = data.name;
-      this._link = data.link;
+    constructor({ item, handleCardClick }, templateSelector) {
+      this._name = item.name;
+      this._link = item.link;
       this._templateSelector = templateSelector;
+      this._handleCardClick = handleCardClick;
     }
   
     _getTemplate() {
@@ -30,10 +29,7 @@ export class Card {
     }
 
     _handleOpenClickPopup() {
-      index.popupImg.alt = this._name;
-      index.popupImg.src = this._link;
-      index.popupTextFigure.textContent = this._name;
-      // index.handleOpenPopup(index.popupFullImageMod);
+      this._handleCardClick();
     }
 
     _handleDeleteCard() {
