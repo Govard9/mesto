@@ -3,8 +3,8 @@ import { Popup } from "./Popup";
 export class PopupWithImage extends Popup {
     constructor(selectorPopup) {
         super(selectorPopup);
-        this._popupImg = this._selectorPopup.querySelector('.popup__img');
-        this._popupText = this._selectorPopup.querySelector('.popup__text-figure');
+        this._popupImg = this._popup.querySelector('.popup__img');
+        this._popupText = this._popup.querySelector('.popup__text-figure');
     }
 
     open({ name, link }) {

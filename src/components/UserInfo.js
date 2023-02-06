@@ -5,14 +5,14 @@ export class UserInfo {
     }
 
     getUserInfo() {
-        const getName = this._profileAuthor.textContent;
-        const getProfession = this._profileProfession.textContent;
+        const author = this._profileAuthor.textContent;
+        const profession = this._profileProfession.textContent;
         
-        return { getName, getProfession }
+        return { author, profession }
     }
 
-    setUserInfo(autor, profession) {
-        this._profileAuthor.textContent = autor;
+    setUserInfo(author, profession) {
+        this._profileAuthor.textContent = author;
         this._profileProfession.textContent = profession;
     }
 }
