@@ -39,7 +39,7 @@ const createCard = (formData) => {
   return cardElement;
 };
 
-// Добавление карточки на сайт
+// Добавление карточки на сайт через форму
 const formAddCard = new PopupWithForm('.popup_add-card', {
   handleFormSubmit: (formData) => {
     const newCard = createCard(formData);
@@ -58,7 +58,7 @@ const formProfile = new PopupWithForm('.popup_profile-popup', {
 });
 formProfile.setEventListeners();
 
-// Отправляет разметку в класс Section
+// Отправляет карты в разметку автоматически
 const cardsListSection = new Section(
   {
     items: initialCards,
