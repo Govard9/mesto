@@ -1,18 +1,18 @@
 export class UserInfo {
-    constructor({ profileAuthor, profileProfession }) {
-        this._profileAuthor = profileAuthor;
-        this._profileProfession = profileProfession;
-    }
+  constructor({ profileAuthor, profileProfession }) {
+    this._profileAuthor = profileAuthor;
+    this._profileProfession = profileProfession;
+  }
 
-    getUserInfo() {
-        const author = this._profileAuthor.textContent;
-        const profession = this._profileProfession.textContent;
-        
-        return { author, profession }
-    }
+  getUserInfo() {
+    const author = this._profileAuthor.textContent;
+    const profession = this._profileProfession.textContent;
 
-    setUserInfo(author, profession) {
-        this._profileAuthor.textContent = author;
-        this._profileProfession.textContent = profession;
-    }
+    return { author, profession };
+  }
+
+  setUserInfo(author, profession) {
+    this._profileAuthor.textContent = author;
+    this._profileProfession.textContent = profession;
+  }
 }

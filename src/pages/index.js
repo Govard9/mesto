@@ -1,16 +1,15 @@
-import initialCards from '../utils/cards.js'
+import initialCards from '../utils/cards.js';
 import './index.css'; // добавьте импорт главного файла стилей
-import { 
+import {
   validationConfig,
-  profileAuthor, 
+  profileAuthor,
   profileProfession,
   nameInput,
   jobInput,
   buttonAddCard,
   popupProfileMod,
   popupAddCardMod,
-  cardsContainer,
-  buttonEditProfile
+  buttonEditProfile,
 } from '../utils/constants.js';
 
 import { Card } from '../components/Card.js';
@@ -25,65 +24,67 @@ popupWithImage.setEventListeners();
 
 const userInfo = new UserInfo({ profileAuthor, profileProfession });
 
-const formAddCard = new PopupWithForm('.popup_add-card', {
-  handleFormSubmit: (formData) => {
-    const newCard = createCard(formData);
-    cardsContainer.prepend(newCard);
-    formAddCard.close();
-  }
-})
-formAddCard.setEventListeners();
-
-const formProfile = new PopupWithForm('.popup_profile-popup', {
-  handleFormSubmit: (formData) => {
-    userInfo.setUserInfo(formData.firstname, formData.profession)
-    formProfile.close();
-  }
-})
-formProfile.setEventListeners();
-
-
-// Отправляет разметку в класс Section
-const cardsListSection = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const card = new Card({ item: item,
-      handleCardClick: () => {
-        popupWithImage.open({ name: item.name, link: item.link });
-      }
-    },
-      '#new-card');
-    const cardElement = card.generateCard();
-    cardsListSection.addItem(cardElement);
-  }
-}, ".photos");
-cardsListSection.renderItems();
-
 const createCard = (formData) => {
-  const card = new Card({ item: formData,
-    handleCardClick: () => {
-      popupWithImage.open({ name: formData.name, link: formData.link });
-    }
-  }, '#new-card');
+  const card = new Card(
+    {
+      item: formData,
+      handleCardClick: () => {
+        popupWithImage.open({ name: formData.name, link: formData.link });
+      },
+    },
+    '#new-card'
+  );
 
   const cardElement = card.generateCard();
   return cardElement;
-}
+};
+
+// Добавление карточки на сайт
+const formAddCard = new PopupWithForm('.popup_add-card', {
+  handleFormSubmit: (formData) => {
+    const newCard = createCard(formData);
+    cardsListSection.addItem(newCard);
+    formAddCard.close();
+  },
+});
+formAddCard.setEventListeners();
+
+// Изменение данных в профиле
+const formProfile = new PopupWithForm('.popup_profile-popup', {
+  handleFormSubmit: (formData) => {
+    userInfo.setUserInfo(formData.firstname, formData.profession);
+    formProfile.close();
+  },
+});
+formProfile.setEventListeners();
+
+// Отправляет разметку в класс Section
+const cardsListSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const newCard = createCard(item);
+      cardsListSection.addItem(newCard);
+    },
+  },
+  '.photos'
+);
+cardsListSection.renderItems();
 
 const handleOpenAddCard = () => {
   formValidAddCard.resetValidation();
-  
+
   // Добавление карт на сайт
   formAddCard.open();
-}
+};
 
 // изменения в профиле пользователя
 const handleOpenProfilePopup = () => {
-  const getUserInfo = userInfo.getUserInfo()
+  const getUserInfo = userInfo.getUserInfo();
   nameInput.value = getUserInfo.author;
   jobInput.value = getUserInfo.profession;
   formProfile.open();
-}
+};
 
 // Обработчик нажатия на +
 buttonAddCard.addEventListener('click', () => {
