@@ -6,6 +6,7 @@ import initialCards from '../components/cards.js'
 import './index.css'; // добавьте импорт главного файла стилей
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
 
 export const validationConfig = {
   formSelector: '.popup__form',
@@ -15,9 +16,6 @@ export const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
 }
-
-// Вынесем все необходимые элементы формы в константы
-const formProfileEdit = document.querySelector('.popup__form');
 
 // Элементы, куда должны быть вставлены значения полей
 const profileAuthor = document.querySelector('.profile__author');
@@ -43,9 +41,6 @@ const popupFullImageMod = document.querySelector('.popup_full-image');
 const inputTitle = popupAddCardMod.querySelector('.popup__input_data_title');
 const inputLinkImg = popupAddCardMod.querySelector('.popup__input_data_link-img');
 
-// Кнопка сохранить
-const buttonSaveInfoCard = popupAddCardMod.querySelector('.popup__main-container');
-
 // Темплейт
 const cardList = document.querySelector('.photos');
 
@@ -57,9 +52,6 @@ const popupTextFigure = document.querySelector('.popup__text-figure');
 // Кнопка редактирования профиля
 const buttonEditProfile = document.querySelector('.profile__edit-button');
 
-// Закрытие popup
-const buttonsClosePopup = document.querySelectorAll('.popup__close-button');
-
 // функция для закрытия попапа по клику вне формы
 export const closePopupOnClick = (evt) => {
   const popupOpened = document.querySelector('.popup_opened');
@@ -69,26 +61,6 @@ export const closePopupOnClick = (evt) => {
     popup.close();
   }
 }
-
-// const handleFormSubmitEventAddCard = (evt) => {
-//   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-//   const form = new PopupWithForm(buttonSaveInfoCard, {
-//     // объект, который мы передадим при вызове handleFormSubmit
-//     // окажется на месте параметра formData
-//     handleFormSubmit: (formData) => {
-//       const card = new Card({ item: formData,
-//         handleCardClick: () => {
-//           const popupWithImage = new PopupWithImage(popupFullImageMod);
-//           popupWithImage.open({ name: item, link: item });
-//         }
-//       },
-//         '#new-card');
-//       const cardElement = card.generateCard();
-//       cardList.prepend(cardElement);
-//     }
-//   }); 
-//   form.setEventListeners();
-// }
 
 // Отправляет разметку в класс Section
 const cardsListSection = new Section({
@@ -107,22 +79,12 @@ const cardsListSection = new Section({
 }, ".photos");
 cardsListSection.renderItems();
 
-const handleProfileFormSubmit = (evt) => {
-  evt.preventDefault(); 
-  profileAuthor.textContent = nameInput.value;
-  profileProfession.textContent = jobInput.value;
-  const popup = new Popup('.popup_profile-popup');
-  popup.close();
-}
-
 const handleOpenAddCard = () => {
   inputTitle.value = '';
   inputLinkImg.value = '';
   
   formValidAddCard.resetValidation();
   
-  const popup = new Popup('.popup_add-card');
-  popup.open();
   // Добавление карт на сайт
   const form = new PopupWithForm('.popup_add-card', {
     // объект, который мы передадим при вызове handleFormSubmit
@@ -139,39 +101,36 @@ const handleOpenAddCard = () => {
       cardList.prepend(cardElement);
     }
   }); 
-  form.setEventListeners();
+  form.open();
 }
 
+// изменения в профиле пользователя
 const handleOpenProfilePopup = () => {
-  nameInput.value = profileAuthor.textContent;
-  jobInput.value = profileProfession.textContent;
-  
-  formValidProfile.resetValidation();
-  const popup = new Popup('.popup_profile-popup');
-  popup.open();
-}
+  const userInfo = new UserInfo({
+    profileAuthor, profileProfession
+  });
+  const getUserInfo = userInfo.getUserInfo()
+  nameInput.value = getUserInfo.getName;
+  jobInput.value = getUserInfo.getProfession;
 
-// // Закрытие попапа по крестику
-// buttonsClosePopup.forEach((button) => {
-//   // находим 1 раз ближайший к крестику попап 
-//   const nearPopup = button.closest('.popup');
-//   // устанавливаем обработчик закрытия на крестик
-//   const popup = new Popup(nearPopup);
-//   popup.setEventListeners();
-//   // button.addEventListener('click', () => handleClosePopup(popup));
-// });
+  const form = new PopupWithForm('.popup_profile-popup', {
+    // объект, который мы передадим при вызове handleFormSubmit
+    // окажется на месте параметра formData
+    handleFormSubmit: (formData) => {
+      userInfo.setUserInfo(formData.firstname, formData.profession)
+    }
+  }); 
+  form.open();
+}
 
 // Обработчик нажатия на +
 buttonAddCard.addEventListener('click', () => {
   handleOpenAddCard();
 });
 
-// обработчик кнопки сохранения инфы для профиля
-formProfileEdit.addEventListener('submit', (evt) => handleProfileFormSubmit(evt));
-
 // обработчик открытия попапа профиля
-buttonEditProfile.addEventListener('click', () => {
-  handleOpenProfilePopup();
+buttonEditProfile.addEventListener('click', (evt) => {
+  handleOpenProfilePopup(evt);
 });
 
 // обработчик всех попапов по клику
@@ -179,16 +138,6 @@ popups.forEach((elem) => {
   const popup = elem.closest('.popup');
   popup.addEventListener('click', (evt) => closePopupOnClick(evt));
 });
-
-// initialCards.forEach((item) => {
-//   const card = new Card(item, '#new-card');
-//   const cardElement = card.generateCard();
-
-//   // Добавляем в DOM
-//   document.querySelector('.photos').append(cardElement);
-// });
-
-
 
 const formValidProfile = new FormValidator(validationConfig, popupProfileMod);
 formValidProfile.enableValidation();
