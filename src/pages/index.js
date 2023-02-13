@@ -18,6 +18,11 @@ import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
 import { UserInfo } from '../components/UserInfo.js';
+import { Api } from '../components/Api.js'
+
+const api = new Api('https://rickandmortyapi.com/api/character/');
+const prom = api.getInitialCards()
+
 
 const popupWithImage = new PopupWithImage('.popup_full-image');
 popupWithImage.setEventListeners();
@@ -61,7 +66,9 @@ formProfile.setEventListeners();
 // Отправляет карты в разметку автоматически
 const cardsListSection = new Section(
   {
-    items: initialCards,
+    items: prom.then((res) => {
+      return res;
+    }),
     renderer: (item) => {
       const newCard = createCard(item);
       cardsListSection.addItem(newCard);

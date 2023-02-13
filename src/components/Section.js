@@ -6,9 +6,11 @@ export class Section {
   }
 
   renderItems() {
-    this._initialArray.forEach((item) => {
-      this._renderer(item); // вызываем renderer, передав item
-    });
+    this._initialArray.then((result) => {
+      return result.map(res => {
+        this._renderer(res)
+      });
+    })
   }
 
   addItem(element) {
