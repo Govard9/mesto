@@ -16,21 +16,24 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img
-          src="<%=require('../src/images/avatar/jak-iv-kusto.jpg')%>"
+        <div class="profile__block-avatar">
+          <img
+          src=""
           alt=" Аватар профиля пользователя."
           class="profile__avatar"
         />
+        <button class="profile__button-edit" type="button" aria-label="изменение фотографии профиля"></button>
+        </div>
         <div class="profile__info">
           <div class="profile__info-text">
-            <h1 class="profile__author">Жак-Ив Кусто</h1>
+            <h1 class="profile__author"></h1>
             <button
               class="profile__edit-button"
               type="button"
               aria-label="редактирование профиля"
             ></button>
           </div>
-          <p class="profile__profession">Исследователь океана</p>
+          <p class="profile__profession"></p>
         </div>
         <button
           class="profile__add-button"
@@ -38,8 +41,7 @@
           aria-label="добавления новой карточки"
         ></button>
       </section>
-      <section class="photos">
-      </section>
+      <section class="photos"></section>
     </main>
     <footer class="footer">
       <p class="footer__author">&copy; 2020 Mesto Russia</p>
@@ -62,7 +64,7 @@
             class="popup__input popup__input_data_name"
             id="name"
           />
-          <span class="popup__error name-error"></span> 
+          <span class="popup__error name-error"></span>
           <input
             type="text"
             name="profession"
@@ -106,9 +108,7 @@
             id="link"
           />
           <span class="popup__error link-error"></span>
-          <button type="submit" class="popup__button">
-            Создать
-          </button>
+          <button type="submit" class="popup__button">Создать</button>
         </form>
       </div>
     </div>
@@ -125,21 +125,55 @@
         </figure>
       </div>
     </div>
+    <div class="popup popup_you-sure">
+      <div class="popup__main-container">
+        <button
+          class="popup__close-button"
+          type="button"
+          aria-label="закрыть всплывающее окно"
+        ></button>
+        <h2 class="popup__text">Вы уверены?</h2>
+        <div class="popup__section">
+          <button class="popup__button">Да</button>
+        </div>
+      </div>
+    </div>
+    <div class="popup popup_update-avatar">
+      <div class="popup__main-container">
+        <button
+          class="popup__close-button"
+          type="button"
+          aria-label="закрыть всплывающее окно"
+        ></button>
+        <h2 class="popup__text">Обновить аватар</h2>
+        <form class="popup__form" name="form-add-card" novalidate>
+          <input
+            type="url"
+            name="link"
+            placeholder="Ссылка на аватар"
+            required
+            class="popup__input popup__input_data_link-img"
+            id="link"
+          />
+          <span class="popup__error link-error"></span>
+          <button type="submit" class="popup__button">Сохранить</button>
+        </form>
+      </div>
+    </div>
     <template id="new-card">
       <article class="card">
-        <img
-          src="#"
-          alt=""
-          class="card__element"
-        />
+        <img src="#" alt="" class="card__element" />
         <button class="card__delete"></button>
         <div class="card__info">
           <h2 class="card__signature"></h2>
-          <button
-            class="card__like"
-            type="button"
-            aria-label="поставить лайк"
-          ></button>
+          <div class="card__block-like">
+            <button
+              class="card__like"
+              type="button"
+              aria-label="поставить лайк"
+            ></button>
+            <p class="card__like-count">0</p>
+          </div>
         </div>
       </article>
     </template>

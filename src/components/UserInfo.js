@@ -4,15 +4,14 @@ export class UserInfo {
     this._profileProfession = profileProfession;
   }
 
-  getUserInfo() {
-    const author = this._profileAuthor.textContent;
-    const profession = this._profileProfession.textContent;
-
-    return { author, profession };
+  getUserInfo(getInfo) {
+    this._profileAuthor.textContent = getInfo.name;
+    this._profileProfession.textContent = getInfo.about;
+    
   }
 
-  setUserInfo(author, profession) {
-    this._profileAuthor.textContent = author;
-    this._profileProfession.textContent = profession;
+  setUserInfo(resultUserRequest) {
+    this._profileAuthor.textContent = resultUserRequest.name;
+    this._profileProfession.textContent = resultUserRequest.about;
   }
 }

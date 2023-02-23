@@ -10,6 +10,8 @@ export const validationConfig = {
 // Элементы, куда должны быть вставлены значения полей
 export const profileAuthor = document.querySelector('.profile__author');
 export const profileProfession = document.querySelector('.profile__profession');
+export const profileBlockAvatar = document.querySelector('.profile__block-avatar');
+export const profileAvatar = document.querySelector('.profile__avatar');
 
 // Форма
 export const mainContainer = document.querySelector('.popup__main-container');
@@ -24,6 +26,7 @@ export const buttonAddCard = document.querySelector('.profile__add-button');
 // Попап карты
 export const popupProfileMod = document.querySelector('.popup_profile-popup');
 export const popupAddCardMod = document.querySelector('.popup_add-card');
+export const popupUpdateAvatar = document.querySelector('.popup_update-avatar');
 
 // Кнопка редактирования профиля
 export const buttonEditProfile = document.querySelector(
