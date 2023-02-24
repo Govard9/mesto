@@ -248,7 +248,7 @@ function renderLoadingUpdateAvatar(isLoading) {
   } else if (!isLoading) {
     popupUpdateAvatar.querySelector(
       validationConfig.submitButtonSelector
-    ).textContent = 'Созранить';
+    ).textContent = 'Сохранить';
   }
 }
 
