@@ -4,19 +4,21 @@ export class Api {
     this._token = token;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: {
         authorization: this._token,
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .then((result) => {
         return result;
       });
@@ -34,13 +36,7 @@ export class Api {
         about: data.profession,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
       });
@@ -52,13 +48,7 @@ export class Api {
         authorization: this._token,
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .then((result) => {
         return result;
       });
@@ -76,13 +66,7 @@ export class Api {
         link: data.link,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
       });
@@ -105,13 +89,7 @@ export class Api {
         'Content-Type': 'application/json',
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
       });
@@ -124,13 +102,7 @@ export class Api {
         authorization: this._token,
       },
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
       });
@@ -144,16 +116,10 @@ export class Api {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        avatar: avatar.link,
+        avatar: avatar.avatar,
       }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
       });

@@ -59,8 +59,8 @@ export class Card {
     this._handleCardClick();
   }
 
-  _handleDeleteCard(cardId) {
-    this._handleCardDelete(cardId);
+  _handleDeleteCard(cardId, elementCard) {
+    this._handleCardDelete(cardId, elementCard);
   }
 
   _handleLikeCard() {
@@ -91,7 +91,7 @@ export class Card {
       this._element
         .querySelector('.card__delete')
         .addEventListener('click', () => {
-          this._handleDeleteCard(this._cardId._id);
+          this._handleDeleteCard(this._cardId._id, this._element);
         });
     }
 
