@@ -78,7 +78,11 @@ export class Api {
       headers: {
         authorization: this._token,
       },
-    });
+    })
+      .then(this._checkResponse)
+      .then((data) => {
+        return data;
+      });
   }
 
   liking(put, cardId) {

@@ -1,6 +1,13 @@
 export class Card {
   constructor(
-    { item, handleCardClick, handleCardDelete, handleLiked, handleLikedDelete, userId },
+    {
+      item,
+      handleCardClick,
+      handleCardDelete,
+      handleLiked,
+      handleLikedDelete,
+      userId,
+    },
     templateSelector
   ) {
     this._name = item.name;
@@ -26,7 +33,7 @@ export class Card {
 
   generateCard() {
     this._element = this._getTemplate();
-
+    
     if (this._cardId.owner._id !== this._userId) {
       this._element.querySelector('.card__delete').remove();
     }
@@ -36,18 +43,21 @@ export class Card {
     }
 
     this._elementImg = this._element.querySelector('.card__element');
+    this._elementLikeCount = this._element.querySelector('.card__like-count');
 
     this._element.querySelector('.card__signature').textContent = this._name;
     this._elementImg.src = this._link;
     this._elementImg.alt = this._name;
 
-    this._likes.forEach(elem => {
+    this._likes.forEach((elem) => {
       if (elem._id === this._userId) {
-        this._element.querySelector('.card__like').classList.toggle('card__like_active');
+        this._element
+          .querySelector('.card__like')
+          .classList.toggle('card__like_active');
       }
     });
 
-    this._element.querySelector('.card__like-count').textContent =
+    this._elementLikeCount.textContent =
       this._likes.length;
 
     this._setEventListeners();
@@ -64,18 +74,17 @@ export class Card {
   }
 
   _handleLikeCard() {
-    if (this._elementLike.classList.toggle('card__like_active')) {
-      this._handleLiked(this._cardId._id).then((res) => {
-        this._element.querySelector('.card__like-count').textContent =
+    this._handleLiked(this._cardId._id).then((res) => {
+      if (this._elementLike.classList.toggle('card__like_active')) {
+        this._elementLikeCount.textContent =
           res.likes.length;
-      });
-    } else {
-      this._handleLikedDelete(this._cardId._id).then((res) => {
-        this._element.querySelector('.card__like-count').textContent =
-          res.likes.length;
-      });
-    }
-    
+      } else {
+        this._handleLikedDelete(this._cardId._id).then((res) => {
+          this._elementLikeCount.textContent =
+            res.likes.length;
+        });
+      }
+    });
   }
 
   _setEventListeners() {

@@ -6,10 +6,8 @@ export class Section {
   }
 
   renderItems() {
-    this._initialArray.then((result) => {
-      return result.map(res => {
+    this._initialArray.map(res => {
         this._renderer(res)
-      });
     })
   }
 
